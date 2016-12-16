@@ -4,6 +4,17 @@ class DecodeRepetition:
         self.data = data
 
     def __call__(self):
+        occurences = self._find_occurences(len(self.data[0]))
+        return self._generate_message(occurences)
+
+    def _find_occurences(self, length):
+        occurences = [[0]*26]*length
+        for signal in self.data:
+            for i, letter in enumerate(signal):
+                occurences[i][ord(letter) - 97] += 1
+        return occurences
+
+    def _generate_message(self, occurences):
         pass
 
 
