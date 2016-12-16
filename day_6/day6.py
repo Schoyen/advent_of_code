@@ -15,7 +15,10 @@ class DecodeRepetition:
         return occurences
 
     def _generate_message(self, occurences):
-        pass
+        message = ''
+        for occurence in occurences:
+            message += chr(occurence.index(max(occurence)) + 97)
+        return message
 
 
 def read_data(filename):
@@ -33,3 +36,5 @@ def read_data(filename):
 
 if __name__ == '__main__':
     data = read_data("day6_example_input.dat")
+    DR = DecodeRepetition(data)
+    print (DR())
