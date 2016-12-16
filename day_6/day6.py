@@ -1,3 +1,11 @@
+class DecodeRepetition:
+
+    def __init__(self, data):
+        self.data = data
+
+    def __call__(self):
+        pass
+
 
 def read_data(filename):
     """Read all data from filename and use split to create a list.
