@@ -1,20 +1,75 @@
 class DecodeRepetition:
+    """Object used for decoding a simple repetition signal.
+    """
 
     def __init__(self, data):
+        """Constructor storing the data to decode.
+
+        Input:
+            data:                       A list with strings containing the
+                                        repetition signal.
+        """
         self.data = data
 
     def __call__(self):
-        occurences = self._find_occurences(len(self.data[0]))
+        """Call-method calling appropriate methods in order to decode the signal.
+
+        Returns:
+            str:                        The decoded message.
+        """
+        columns = self._separate_columns(max(map(len, self.data)))
+        occurences = []
+        for i in range(len(columns)):
+            occurences.append(self._find_occurence(columns[i]))
         return self._generate_message(occurences)
 
-    def _find_occurences(self, length):
-        occurences = [[0]*26]*length
+    def _separate_columns(self, length):
+        """Private method used to read data column-wise and store in this in a
+        list.
+
+        Input:
+            length:                     The length of the longest string in
+                                        self.data.
+
+        Returns:
+            columns:                    A list of strings containing the
+                                        "vertical" characters in self.data.
+        """
+        columns = ['']*length
         for signal in self.data:
-            for i, letter in enumerate(signal):
-                occurences[i][ord(letter) - 97] += 1
-        return occurences
+            for i, char in enumerate(signal):
+                columns[i] += char
+        return columns
+
+    def _find_occurence(self, column):
+        """Private method used to count the occurences of the characters in the
+        string column.
+
+        Input:
+            column:                     A string containing lower-case
+                                        characters.
+
+        Returns:
+            occurece:                   A list where the index corresponds to a
+                                        character and the elements are the
+                                        number of occurences of each character.
+        """
+        occurence = [0]*26
+        for letter in column:
+            occurence[ord(letter) - 97] += 1
+        return occurence
 
     def _generate_message(self, occurences):
+        """Private method used to generate the decoded message.
+
+        Input:
+            occurences:                 A list of lists containing the number of
+                                        occurences of each character in
+                                        self.data.
+
+        Returns:
+            message:                    The decoded string.
+        """
         message = ''
         for occurence in occurences:
             message += chr(occurence.index(max(occurence)) + 97)
@@ -35,6 +90,6 @@ def read_data(filename):
         return f.read().split()
 
 if __name__ == '__main__':
-    data = read_data("day6_example_input.dat")
+    data = read_data("day6_input.dat")
     DR = DecodeRepetition(data)
     print (DR())
