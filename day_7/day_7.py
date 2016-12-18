@@ -40,6 +40,8 @@ def test_example_values():
     for expected, data in zip(expected_result, example_data):
         assert expected == _determine_ABBA(data)
 
+    assert sum(expected_result) == determine_ABBA(example_data)
+
 if __name__ == '__main__':
     with open('day7_input.dat', 'r') as f:
         data = f.read().split()
