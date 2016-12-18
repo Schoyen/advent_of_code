@@ -1,6 +1,17 @@
-
-def determine_ABBA_(ipv7_address):
+def determine_ABBA(addresses):
     pass
+
+def _determine_ABBA(ipv7_address):
+    import re
+    address_sections = re.findall("\w+", ipv7_address)
+    success = []
+    for i, section in enumerate(address_sections):
+        if i & 0x1 == 0: # Even number
+            success.append(_determine_symmetric_string(section))
+        else:
+            if _determine_symmetric_string(section):
+                return False
+    return True in success
 
 def _determine_symmetric_string(string):
     if len(string) < 4:
