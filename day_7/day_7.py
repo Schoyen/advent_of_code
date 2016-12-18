@@ -45,4 +45,5 @@ def test_example_values():
 if __name__ == '__main__':
     with open('day7_input.dat', 'r') as f:
         data = f.read().split()
+    print ("The number of IPv7-addresses that support TLS is: %d" % determine_ABBA(data))
 
