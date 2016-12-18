@@ -96,4 +96,5 @@ def read_data(filename):
 if __name__ == '__main__':
     data = read_data("day6_input.dat")
     DR = DecodeRepetition(data)
-    print (DR())
+    print ("The decoded signal for part 1 is: %s" % DR())
+    print ("The decoded signal for part 2 is: %s" % DR(criteria=min))
