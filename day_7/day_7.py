@@ -1,5 +1,5 @@
 def determine_ABBA(addresses):
-    pass
+    return sum([_determine_ABBA(address) for address in addresses])
 
 def _determine_ABBA(ipv7_address):
     import re
