@@ -11,8 +11,11 @@ class DecodeRepetition:
         """
         self.data = data
 
-    def __call__(self):
+    def __call__(self, criteria=max):
         """Call-method calling appropriate methods in order to decode the signal.
+
+        Input:
+            criteria:                   The method used to decode the signal.
 
         Returns:
             str:                        The decoded message.
@@ -21,7 +24,7 @@ class DecodeRepetition:
         occurences = []
         for i in range(len(columns)):
             occurences.append(self._find_occurence(columns[i]))
-        return self._generate_message(occurences)
+        return self._generate_message(occurences, criteria=criteria)
 
     def _separate_columns(self, length):
         """Private method used to read data column-wise and store in this in a
@@ -59,20 +62,21 @@ class DecodeRepetition:
             occurence[ord(letter) - 97] += 1
         return occurence
 
-    def _generate_message(self, occurences):
+    def _generate_message(self, occurences, criteria=max):
         """Private method used to generate the decoded message.
 
         Input:
             occurences:                 A list of lists containing the number of
                                         occurences of each character in
                                         self.data.
+            criteria:                   The method used to decode the signal.
 
         Returns:
             message:                    The decoded string.
         """
         message = ''
         for occurence in occurences:
-            message += chr(occurence.index(max(occurence)) + 97)
+            message += chr(occurence.index(criteria(occurence)) + 97)
         return message
 
 
