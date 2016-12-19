@@ -31,7 +31,8 @@ class Display:
         return new_screen
 
     def rotate_column(self, A, B, screen):
-        pass
+        new_screen = self.rotate_row(A, B, [[screen[j][i] for j in range(self.height)] for i in range(self.width)])
+        return [[new_screen[j][i] for j in range(self.width)] for i in range(self.height)]
 
     def __str__(self):
         return '\n'.join([' '.join(row) for row in self.screen])
