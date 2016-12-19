@@ -70,4 +70,12 @@ if __name__ == '__main__':
     with open('day8_input.dat', 'r') as f:
         data = [line.rstrip('\n') for line in f]
 
+    commands = split_data_string(data)
+    print (commands)
     display = Display(50, 6)
+    for command in commands:
+        __import__('os').system('clear')
+        display(command[0], *command[1])
+        print (display)
+
+    print ("The number of pixels is: %d" % display.count_pixels())
