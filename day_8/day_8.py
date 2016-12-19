@@ -20,6 +20,18 @@ class Display:
 
         return screen
 
+    def rotate_row(self, A, B, screen):
+        if A > len(screen):
+            return screen
+
+        new_screen = [[element if i != A else '.' for element in screen[i]] for i in range(len(screen))]
+        for i in range(len(screen[0])):
+            new_screen[A][(i + B) % len(screen[0])] = screen[A][i]
+
+        return new_screen
+
+    def rotate_column(self, A, B, screen):
+        pass
 
     def __str__(self):
         return '\n'.join([' '.join(row) for row in self.screen])
