@@ -35,7 +35,10 @@ class Display:
         return [[new_screen[j][i] for j in range(self.width)] for i in range(self.height)]
 
     def __str__(self):
-        return '\n'.join([' '.join(row) for row in self.screen])
+        return '\n'.join([''.join(row) for row in self.screen])
+
+    def count_pixels(self):
+        return sum([sum([element == '#' for element in row]) for row in self.screen])
 
 if __name__ == '__main__':
     with open('day8_input.dat', 'r') as f:
